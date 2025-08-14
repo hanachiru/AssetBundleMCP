@@ -1,0 +1,106 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      bump-level:
+        type: choice
+        options: [major, minor, patch]
+        required: true
+        default: patch
+        description: "The level of version bump to apply"
+
+permissions:
+  contents: read
+
+env:
+  VersionFile: "./Directory.Build.props"
+  McpServerFile: "./.mcp/server.json"
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/create-github-app-token@v2
+        id: app-token
+        with:
+          app-id: ${{ secrets.BOT_APP_ID }}
+          private-key: ${{ secrets.BOT_PRIVATE_KEY }}
+      - name: Get GitHub App User ID
+        id: get-user-id
+        run: echo "user-id=$(gh api "/users/${{ steps.app-token.outputs.app-slug }}[bot]" --jq .id)" >> "$GITHUB_OUTPUT"
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ steps.app-token.outputs.token }}
+          submodules: true
+
+      - name: Check and Update Version
+        id: update-version
+        shell: pwsh
+        run: |
+          $PSNativeCommandUseErrorActionPreference = $true
+          $ErrorActionPreference = 'Stop'
+
+          # read and write $VersionFile
+          [xml]$xml = Get-Content $env:VersionFile
+          $versionString = $xml.Project.PropertyGroup.PackageVersion
+          Write-Output "Current Module Version: $versionString"
+
+          $ver = [System.Version]$versionString
+          switch ('${{ github.event.inputs.bump-level }}') {
+            'major' { $newVersion = "{0}.{1}.{2}" -f ($ver.Major + 1), 0, 0 }
+            'minor' { $newVersion = "{0}.{1}.{2}" -f $ver.Major, ($ver.Minor + 1), 0 }
+            'patch' { $newVersion = "{0}.{1}.{2}" -f $ver.Major, $ver.Minor, ($ver.Build + 1) }
+            default { $newVersion = $versionString }
+          }
+          $xml.Project.PropertyGroup.PackageVersion = $newVersion
+          $xml.Save($env:VersionFile)
+          Write-Output "newVersion=$newVersion" | Tee-Object -FilePath ${env:GITHUB_OUTPUT} -Append
+
+          # write $McpServerFile
+          $serverJson = Get-Content $env:McpServerFile -Raw | ConvertFrom-Json
+          $serverJson.packages[0].version = $newVersion
+          $serverJson.version_detail.version = $newVersion
+          $serverJson | ConvertTo-Json -Depth 10 | Set-Content $env:McpServerFile -Encoding UTF8
+      - name: Commit and Push to Main
+        shell: bash
+        env:
+          VERSION: ${{ steps.update-version.outputs.newVersion }}
+        run: |
+          git config user.name '${{ steps.app-token.outputs.app-slug }}[bot]'
+          git config user.email '${{ steps.get-user-id.outputs.user-id }}+${{ steps.app-token.outputs.app-slug }}[bot]@users.noreply.github.com'
+          git add "${VersionFile}"
+          message="Update v${VERSION}"
+          git commit -m "${message}"
+          git push
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 9.0.x
+      - name: Install dependencies
+        run: dotnet restore
+      - name: Build
+        run: dotnet build AssetBundleMCP.slnx --no-restore -c Release
+      - name: Pack
+        run: dotnet pack --no-build -c Release -o ./Output
+      - name: Publish to NuGet
+        working-directory: ./Output
+        env:
+          VERSION: ${{ steps.read-version.outputs.version }}
+        run: |
+          dotnet nuget push "AssetBundleMCP.${VERSION}.nupkg" --api-key ${{secrets.NUGET_API_KEY}} --source https://api.nuget.org/v3/index.json
+
+      - uses: release-drafter/release-drafter@v6
+        id: release-drafter
+        with:
+          publish: true
+          commitish: main
+          tag: v${{ steps.update-version.outputs.newVersion }}
+          name: v${{ steps.update-version.outputs.newVersion }}
+          version: ${{ steps.update-version.outputs.newVersion }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
