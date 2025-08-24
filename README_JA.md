@@ -66,19 +66,22 @@
 
 ### .NET10 preview6 以前 (非推奨)
 
-1.  **リポジトリのクローン**:
+1.  **リポジトリのクローン**:  
+  
     Gitのサブモジュールも同時に取得するため、`--recurse-submodules` オプションを付けてクローンします。
     ```bash
     git clone --recurse-submodules https://github.com/hanachiru/AssetBundleMCP.git
     cd AssetBundleMCP
     ```
 
-2.  **プロジェクトのビルド**:
+2.  **プロジェクトのビルド**:  
+  
     ```bash
     dotnet build -c Release
     ```
 
-3.  **MCPサーバーの設定**:
+3.  **MCPサーバーの設定**:  
+  
     お使いのAIアシスタントのドキュメントに従って、`AssetBundleMCP`をMCPサーバーとして設定してください。
 
 - **Visual Studio Code の場合**: `.vscode/mcp.json`

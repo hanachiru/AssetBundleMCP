@@ -66,7 +66,8 @@ Please follow the documentation for your AI assistant to set up `AssetBundleMCP`
 
 
 ### Before .NET 10 preview 6 (Not Recommended)
-1.  **Clone the Repository**:
+1.  **Clone the Repository**:  
+  
     Clone with the --recurse-submodules option to also fetch the Git submodules.
 
     ```bash
@@ -74,14 +75,14 @@ Please follow the documentation for your AI assistant to set up `AssetBundleMCP`
     cd AssetBundleMCP
     ```
 
-2.  **Build the Project**:
-
+2.  **Build the Project**:  
+  
     ```bash
     dotnet build -c Release
     ```
     
-3.  **Configure the MCP server**:
-
+3.  **Configure the MCP server**:  
+  
 Please follow the documentation for your AI assistant to set up AssetBundleMCP as an MCP server.
 
 
