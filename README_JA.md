@@ -1,35 +1,75 @@
-# AssetBundleMCP - AIアシスタントとの対話でUnity AssetBundleを分析するツール
+# AssetBundleMCP
 
-`AssetBundleMCP`は、AIアシスタント（GitHub Copilot Chatなど）との対話を通じて、UnityのAssetBundleを簡単かつ効率的に分析するためのMCP (Model-Context-Protocol) サーバーです。
+[English](README.md)
 
-従来、AssetBundleの分析は専門的な知識や複数のツールを必要とする複雑な作業でした。このツールを使用することで、開発者やQAエンジニアは自然言語で質問するだけで、AssetBundleの内容、依存関係、潜在的な問題点などを迅速に把握できます。
+`AssetBundleMCP`は、AIアシスタント（gemini-cliなど）との対話を通じて、UnityのAssetBundleを簡単かつ効率的に分析するためのMCP (Model-Context-Protocol) サーバーです。
 
-## プレビュー
+このツールを使用することで、開発者やQAエンジニアは自然言語で質問するだけで、AssetBundleに含まれるアセットの一覧やテクスチャの情報などを迅速に把握できます。
 
-*ここにツールの使用例を示すスクリーンショットやGIFを挿入すると、より分かりやすくなります。*
-
-![動作プレビュー](https://example.com/path/to/preview.gif)
+![Screenshot](docs/sample_japanese.png)
 
 ## 主な機能
 
 - **対話的なAssetBundle分析**: AIアシスタントに話しかけるだけで、AssetBundleを分析できます。
-- **詳細な情報取得**: アセット、オブジェクト、テクスチャ、シェーダー、アニメーションなど、内部の各要素を一覧表示します。
-- **依存関係の可視化**: アセット間の依存関係や、マテリアルとシェーダー/テクスチャの関連を明らかにします。
-- **サイズの最適化支援**: タイプ別の内訳や、重複している可能性のあるアセットを検出し、最適化のヒントを得られます。
-- **柔軟なデータアクセス**: 直接SQLクエリを実行し、データベース化された分析結果から自由に情報を抽出できます。
+- **導入のしやすさ**: NuGetパッケージとして提供されているため、設定ファイルに記載するだけで簡単に導入できます。
+- **柔軟なデータアクセス**: AIに直接SQLクエリを記述させることもでき、データベース化された分析結果から自由に情報を抽出できます。
 
 ## 前提条件
 
-- [.NET 8.0 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
-- [Visual Studio 2022](https://visualstudio.microsoft.com/ja/) または [Visual Studio Code](https://code.visualstudio.com/)
-- [GitHub Copilot](https://github.com/features/copilot) 拡張機能
+- .NET 9.0 SDK以降
 
 ## インストールと設定
+
+### .NET10がインストールされている場合（推奨）
+
+.NET10 preview6以降は、dnxを使用して直接実行できます。
+
+お使いのAIアシスタントのドキュメントに従って、`AssetBundleMCP`をMCPサーバーとして設定してください。
+
+- **Visual Studio Code の場合**: `.vscode/mcp.json`
+- **Visual Studio の場合**: `.mcp.json`
+
+```json
+{
+  "servers": {
+    "AssetBundleMCP": {
+      "type": "stdio",
+      "command": "dnx",
+      "args": [
+        "AssetBundleMCP",
+        "--version",
+        "0.1.2",
+        "--yes"
+      ]
+    }
+  }
+}
+```
+
+- **Gemini Cliの場合**: `.gemini/settings.json`
+
+```json
+{
+  "mcpServers": {
+    "AssetBundleMCP": {
+      "command": "dnx",
+      "args": [
+        "AssetBundleMCP",
+        "--version",
+        "0.1.2",
+        "--yes"
+      ]
+    }
+  }
+}
+```
+
+### .NET10 preview6 以前 (非推奨)
 
 1.  **リポジトリのクローン**:
     Gitのサブモジュールも同時に取得するため、`--recurse-submodules` オプションを付けてクローンします。
     ```bash
-    git clone --recurse-submodules https://github.com/your-username/AssetBundleMCP.git
+    git clone --recurse-submodules https://github.com/hanachiru/AssetBundleMCP.git
     cd AssetBundleMCP
     ```
 
@@ -39,23 +79,38 @@
     ```
 
 3.  **MCPサーバーの設定**:
-    お使いのIDEに合わせて、プロジェクトのルートに設定ファイルを作成します。
+    お使いのAIアシスタントのドキュメントに従って、`AssetBundleMCP`をMCPサーバーとして設定してください。
 
     - **Visual Studio Code の場合**: `.vscode/mcp.json`
     - **Visual Studio の場合**: `.mcp.json`
 
-    以下の内容でファイルを作成し、`<PATH TO PROJECT DIRECTORY>` を実際のプロジェクトディレクトリへの絶対パスに置き換えてください。
-
     ```json
     {
       "servers": {
-        "AssetBundleMCP": {
+        "SampleMcpServer": {
           "type": "stdio",
           "command": "dotnet",
           "args": [
             "run",
             "--project",
-            "<PATH TO PROJECT DIRECTORY>\src\AssetBundleMCP\AssetBundleMCP.csproj"
+            "<PATH TO PROJECT DIRECTORY>/src/AssetBundleMCP/AssetBundleMCP.csproj"
+          ]
+        }
+      }
+    }
+    ```
+
+    - **Gemini Cliの場合**: `.gemini/settings.json`
+
+    ```json
+    {
+      "mcpServers": {
+        "AssetBundleMCP": {
+          "command": "dotnet",
+          "args": [
+            "run", 
+            "--project",
+            "<PATH TO PROJECT DIRECTORY>/src/AssetBundleMCP/AssetBundleMCP.csproj"
           ]
         }
       }
@@ -65,32 +120,28 @@
 ## 使用方法
 
 1.  **AssetBundleのロード**:
-    IDEでCopilot Chatを開き、分析したいAssetBundleが含まれるディレクトリのパスを指定して、ロードを指示します。
-    > `@workspace /loadAssetBundle C:/path/to/your/assetbundles`
+    分析したいAssetBundleが含まれるディレクトリのパスを指定して、ロードを指示します。
+    > `C:/path/to/your/assetbundlesにあるAssetBundleをロードしてください`
 
-    ツールがAssetBundleを分析し、結果を一時的なデータベースファイルに保存します。
+    ツールがAssetBundleを分析し、結果を一時的なデータベースファイルに保存します。出力先を指定しない場合はカレントディレクトリにSQLiteファイルが作成されます。   
 
 2.  **情報の取得**:
     ロードが完了したら、様々な質問をすることができます。
     - アセットの一覧を取得する:
-      > `@workspace /listAssets`
+      > `AssetBundle内のアセットの一覧を教えてください`
     - テクスチャの一覧を取得する:
-      > `@workspace /listTextures`
-    - 重複している可能性のあるアセットを探す:
-      > `@workspace /listPotentialDuplicates`
-    - SQLで直接クエリを実行する:
-      > `@workspace /executeSqlQuery SELECT * FROM assets WHERE size > 100000`
+      > `AssetBundle内のテクスチャの一覧を教えてください`
 
 3.  **分析の終了**:
     分析が終わったら、以下のコマンドでデータベースをアンロードし、リソースを解放します。
-    > `@workspace /unLoadAssetBundle`
+    > `AssetBundleのデータベースをアンロードしてください`
 
 ## 利用可能なツール一覧
 
-| コマンド名 | 説明 |
-| --- | --- |
-| `LoadAssetBundle` | AssetBundleを分析のためにロードします。 |
-| `UnLoadAssetBundle` | ロードしたデータベースファイルをアンロードします。 |
+| コマンド名 | 説明                          |
+| --- |-----------------------------|
+| `LoadAssetBundle` | AssetBundleを分析のためにロードします。   |
+| `UnLoadAssetBundle` | ロードしたデータベースファイルをアンロードします。   |
 | `ListAnimations` | AssetBundle内のすべてのアニメーションを一覧表示します。 |
 | `ListAssetDependencies` | AssetBundle内のすべてのアセットの依存関係を一覧表示します。 |
 | `ListAssets` | AssetBundle内のすべてのアセットを一覧表示します。 |
