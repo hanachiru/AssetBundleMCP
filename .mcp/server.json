@@ -6,7 +6,7 @@
     {
       "registry_name": "nuget",
       "name": "AssetBundleMCP",
-      "version": "0.1.2",
+      "version": "0.1.3",
       "package_arguments": [],
       "environment_variables": []
     }
@@ -16,6 +16,6 @@
     "source": "github"
   },
   "version_detail": {
-    "version": "0.1.2"
+    "version": "0.1.3"
   }
 }
