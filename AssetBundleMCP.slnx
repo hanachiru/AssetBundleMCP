@@ -1,0 +1,5 @@
+﻿<Solution>
+  <Project Path="sandbox\ConsoleApp1\ConsoleApp1.csproj" Type="Classic C#" />
+  <Project Path="src/AssetBundleMCP/AssetBundleMCP.csproj" Type="Classic C#" />
+  <Project Path="tests\AssetBundleMCP.Tests\AssetBundleMCP.Tests.csproj" Type="Classic C#" />
+</Solution>
