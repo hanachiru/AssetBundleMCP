@@ -124,12 +124,14 @@ Please follow the documentation for your AI assistant to set up AssetBundleMCP a
 ## Usage
 
 1.  **Loading AssetBundles**:  
+  
     Specify the directory path containing the AssetBundles you want to analyze and instruct the tool to load them.  
     > Please load the AssetBundles in C:/path/to/your/assetbundles
 
     The tool will analyze the AssetBundles and save the results to a temporary database file. If you do not specify an output destination, an SQLite file will be created in the current directory.
 
 2.  **Retrieving Information**:  
+  
     Once loading is complete, you can ask various questions.
     - To get a list of assets:  
       > Please show me the list of assets in the AssetBundle
@@ -137,6 +139,7 @@ Please follow the documentation for your AI assistant to set up AssetBundleMCP a
       > Please show me the list of textures in the AssetBundle
 
 3.  **Finishing Analysis**:  
+  
     When you are done analyzing, unload the database and release resources with the following command:  
     > Please unload the AssetBundle database
 
