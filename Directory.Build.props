@@ -1,6 +1,5 @@
 <Project>
   <PropertyGroup>
-    <!-- NuGet Packaging -->
     <PackageVersion>0.1.2</PackageVersion>
     <Authors>hanachiru</Authors>
     <Copyright>©Hanachiru</Copyright>

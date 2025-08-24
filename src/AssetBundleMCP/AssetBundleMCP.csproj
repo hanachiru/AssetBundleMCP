@@ -13,6 +13,7 @@
         <PackageId>AssetBundleMCP</PackageId>
         <PackageTags>AI; MCP; server; stdio</PackageTags>
         <Description>MCP Server for Unity AssetBundle Reverse Engineering.</Description>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
     </PropertyGroup>
 
     <ItemGroup>

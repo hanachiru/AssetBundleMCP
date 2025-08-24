@@ -1,85 +1,132 @@
 # AssetBundleMCP
 
-This README was created using the C# MCP server project template. It demonstrates how you can easily create an MCP server using C# and publish it as a NuGet package.
+[日本語](README_JA.md)
 
-See [aka.ms/nuget/mcp/guide](https://aka.ms/nuget/mcp/guide) for the full guide.
+`AssetBundleMCP` is an MCP (Model-Context-Protocol) server for easily and efficiently analyzing Unity AssetBundles through conversations with AI assistants (such as gemini-cli).
 
-Please note that this template is currently in an early preview stage. If you have feedback, please take a [brief survey](http://aka.ms/dotnet-mcp-template-survey).
+With this tool, developers and QA engineers can quickly obtain information such as a list of assets or texture details included in an AssetBundle simply by asking questions in natural language.
 
-## Checklist before publishing to NuGet.org
+![Screenshot](docs/sample_english.png)
 
-- Test the MCP server locally using the steps below.
-- Update the package metadata in the .csproj file, in particular the `<PackageId>`.
-- Update `.mcp/server.json` to declare your MCP server's inputs.
-  - See [configuring inputs](https://aka.ms/nuget/mcp/guide/configuring-inputs) for more details.
-- Pack the project using `dotnet pack`.
+## Main Features
 
-The `bin/Release` directory will contain the package file (.nupkg), which can be [published to NuGet.org](https://learn.microsoft.com/nuget/nuget-org/publish-a-package).
+- **Interactive AssetBundle Analysis**: Analyze AssetBundles just by talking to your AI assistant.
+- **Easy Installation**: Provided as a NuGet package, so you can easily introduce it by adding it to your configuration file.
+- **Flexible Data Access**: You can also write SQL queries directly to the AI and freely extract information from the database-formatted analysis results.
 
-## Developing locally
+## Prerequisites
 
-To test this MCP server from source code (locally) without using a built MCP server package, you can configure your IDE to run the project directly using `dotnet run`.
+- .NET 9.0 SDK or later
 
-```json
-{
-  "servers": {
-    "SampleMcpServer": {
-      "type": "stdio",
-      "command": "dotnet",
-      "args": [
-        "run",
-        "--project",
-        "<PATH TO PROJECT DIRECTORY>"
-      ]
+## Installation & Setup
+
+### If .NET 10 is installed (Recommended)
+
+### For .NET 10 preview6 or earlier (Not recommended)
+
+1.  **Clone the repository**:  
+    Clone with submodules using the `--recurse-submodules` option.
+    ```bash
+    git clone --recurse-submodules https://github.com/hanachiru/AssetBundleMCP.git
+    cd AssetBundleMCP
+    ```
+
+2.  **Build the project**:
+    ```bash
+    dotnet build -c Release
+    ```
+
+3.  **Configure the MCP server**:  
+    Create a configuration file in your project root according to your IDE.
+
+    - **For Visual Studio Code**: `.vscode/mcp.json`
+    - **For Visual Studio**: `.mcp.json`
+
+    ```json
+    {
+      "servers": {
+        "AssetBundleMCP": {
+          "type": "stdio",
+          "command": "dnx",
+          "args": [
+            "AssetBundleMCP",
+            "--version",
+            "0.1.2",
+            "--yes"
+          ]
+        }
+      }
     }
-  }
-}
-```
+    ```
 
-## Testing the MCP Server
+    - **For Gemini Cli**: `.gemini/settings.json`
 
-Once configured, you can ask Copilot Chat for a random number, for example, `Give me 3 random numbers`. It should prompt you to use the `get_random_number` tool on the `SampleMcpServer` MCP server and show you the results.
-
-## Publishing to NuGet.org
-
-1. Run `dotnet pack -c Release` to create the NuGet package
-2. Publish to NuGet.org with `dotnet nuget push bin/Release/*.nupkg --api-key <your-api-key> --source https://api.nuget.org/v3/index.json`
-
-## Using the MCP Server from NuGet.org
-
-Once the MCP server package is published to NuGet.org, you can configure it in your preferred IDE. Both VS Code and Visual Studio use the `dnx` command to download and install the MCP server package from NuGet.org.
-
-- **VS Code**: Create a `<WORKSPACE DIRECTORY>/.vscode/mcp.json` file
-- **Visual Studio**: Create a `<SOLUTION DIRECTORY>\.mcp.json` file
-
-For both VS Code and Visual Studio, the configuration file uses the following server definition:
-
-```json
-{
-  "servers": {
-    "SampleMcpServer": {
-      "type": "stdio",
-      "command": "dnx",
-      "args": [
-        "<your package ID here>",
-        "--version",
-        "<your package version here>",
-        "--yes"
-      ]
+    ```json
+    {
+      "mcpServers": {
+        "AssetBundleMCP": {
+          "command": "dnx",
+          "args": [
+            "AssetBundleMCP",
+            "--version",
+            "0.1.2",
+            "--yes"
+          ]
+        }
+      }
     }
-  }
-}
-```
+    ```
 
-## More information
+## Usage
 
-.NET MCP servers use the [ModelContextProtocol](https://www.nuget.org/packages/ModelContextProtocol) C# SDK. For more information about MCP:
+1.  **Load AssetBundle**:  
+    Open Copilot Chat in your IDE, specify the directory path containing the AssetBundle you want to analyze, and instruct it to load.
+    > `@workspace /loadAssetBundle C:/path/to/your/assetbundles`
 
-- [Official Documentation](https://modelcontextprotocol.io/)
-- [Protocol Specification](https://spec.modelcontextprotocol.io/)
-- [GitHub Organization](https://github.com/modelcontextprotocol)
+    The tool will analyze the AssetBundle and save the results to a temporary database file.
 
-Refer to the VS Code or Visual Studio documentation for more information on configuring and using MCP servers:
+2.  **Retrieve Information**:  
+    Once loading is complete, you can ask various questions.
+    - Get a list of assets:  
+      > `@workspace /listAssets`
+    - Get a list of textures:  
+      > `@workspace /listTextures`
+    - Find potentially duplicated assets:  
+      > `@workspace /listPotentialDuplicates`
+    - Execute a direct SQL query:  
+      > `@workspace /executeSqlQuery SELECT * FROM assets WHERE size > 100000`
 
-- [Use MCP servers in VS Code (Preview)](https://code.visualstudio.com/docs/copilot/chat/mcp-servers)
-- [Use MCP servers in Visual Studio (Preview)](https://learn.microsoft.com/visualstudio/ide/mcp-servers)
+3.  **Finish Analysis**:  
+    When analysis is complete, unload the database and release resources with the following command:
+    > `@workspace /unLoadAssetBundle`
+
+## Available Tools
+
+| Command Name | Description |
+| --- | --- |
+| `LoadAssetBundle` | Loads an AssetBundle for analysis. |
+| `UnLoadAssetBundle` | Unloads the loaded database file. |
+| `ListAnimations` | Lists all animations in the AssetBundle. |
+| `ListAssetDependencies` | Lists all asset dependencies in the AssetBundle. |
+| `ListAssets` | Lists all assets in the AssetBundle. |
+| `ListAudioClips` | Lists all audio clips in the AssetBundle. |
+| `ListMeshes` | Lists all meshes in the AssetBundle. |
+| `ListObjects` | Lists all objects in the AssetBundle. |
+| `ListShaderKeywordRatios` | Lists all shader keyword ratios in the AssetBundle. |
+| `ListShaderSubprograms` | Lists all shader subprograms in the AssetBundle. |
+| `ListShaders` | Lists all shaders in the AssetBundle. |
+| `ListTextures` | Lists all textures in the AssetBundle. |
+| `ListBreakdownByType` | Lists breakdown by type in the AssetBundle. |
+| `ListBreakdownShaders` | Lists breakdown of shaders in the AssetBundle. |
+| `ListMaterialShaderRefs` | Lists all material shader references in the AssetBundle. |
+| `ListMaterialTextureRefs` | Lists all material texture references in the AssetBundle. |
+| `ListPotentialDuplicates` | Lists all potential duplicates in the AssetBundle. |
+| `ExecuteSqlQuery` | Executes a SQL query on the AssetBundle database. |
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
+
+## Acknowledgements
+
+The core analysis functionality of this tool uses [UnityDataTools](https://github.com/AssetTools/UnityDataTools). Many thanks to the developers of this excellent library.
