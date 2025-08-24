@@ -1,6 +1,6 @@
 <Project>
   <PropertyGroup>
-    <PackageVersion>0.1.3</PackageVersion>
+    <PackageVersion>0.1.4</PackageVersion>
     <Authors>hanachiru</Authors>
     <Copyright>©Hanachiru</Copyright>
     <PackageProjectUrl>https://github.com/hanachiru/AssetBundleMCP</PackageProjectUrl>
