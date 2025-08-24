@@ -2,9 +2,9 @@
 
 [日本語](README_JA.md)
 
-`AssetBundleMCP` is an MCP (Model-Context-Protocol) server for easily and efficiently analyzing Unity AssetBundles through conversations with AI assistants (such as gemini-cli).
+`AssetBundleMCP` is an MCP (Model-Context-Protocol) server for easily and efficiently analyzing Unity AssetBundles through conversation with an AI assistant (such as gemini-cli).
 
-With this tool, developers and QA engineers can quickly obtain information such as a list of assets or texture details included in an AssetBundle simply by asking questions in natural language.
+By using this tool, developers and QA engineers can quickly grasp information such as a list of assets and texture details contained in an AssetBundle simply by asking questions in natural language.
 
 ![Screenshot](docs/sample_english.png)
 
@@ -22,83 +22,123 @@ With this tool, developers and QA engineers can quickly obtain information such 
 
 ### If .NET 10 is installed (Recommended)
 
-### For .NET 10 preview6 or earlier (Not recommended)
+Starting from .NET 10 preview 6, you can run it directly using `dnx`.
 
-1.  **Clone the repository**:  
-    Clone with submodules using the `--recurse-submodules` option.
+Please follow the documentation for your AI assistant to set up `AssetBundleMCP` as an MCP server.
+
+- **For Visual Studio Code**: `.vscode/mcp.json`
+- **For Visual Studio**: `.mcp.json`
+
+```json
+{
+  "servers": {
+    "AssetBundleMCP": {
+      "type": "stdio",
+      "command": "dnx",
+      "args": [
+        "AssetBundleMCP",
+        "--version",
+        "0.1.2",
+        "--yes"
+      ]
+    }
+  }
+}
+```
+
+- **For Gemini Cli**: `.gemini/settings.json`
+
+```json
+{
+  "mcpServers": {
+    "AssetBundleMCP": {
+      "command": "dnx",
+      "args": [
+        "AssetBundleMCP",
+        "--version",
+        "0.1.2",
+        "--yes"
+      ]
+    }
+  }
+}
+```
+
+
+### Before .NET 10 preview 6 (Not Recommended)
+1.  **Clone the Repository**:
+    Clone with the --recurse-submodules option to also fetch the Git submodules.
+
     ```bash
-    git clone --recurse-submodules https://github.com/hanachiru/AssetBundleMCP.git
+    git clone --recurse-submodules [https://github.com/hanachiru/AssetBundleMCP.git](https://github.com/hanachiru/AssetBundleMCP.git)
     cd AssetBundleMCP
     ```
 
-2.  **Build the project**:
+2.  **Build the Project**:
+
     ```bash
     dotnet build -c Release
     ```
+    
+3.  **Configure the MCP server**:
 
-3.  **Configure the MCP server**:  
-    Create a configuration file in your project root according to your IDE.
+Please follow the documentation for your AI assistant to set up AssetBundleMCP as an MCP server.
 
-    - **For Visual Studio Code**: `.vscode/mcp.json`
-    - **For Visual Studio**: `.mcp.json`
 
-    ```json
-    {
-      "servers": {
-        "AssetBundleMCP": {
-          "type": "stdio",
-          "command": "dnx",
-          "args": [
-            "AssetBundleMCP",
-            "--version",
-            "0.1.2",
-            "--yes"
-          ]
-        }
-      }
+- **For Visual Studio Code**: `.vscode/mcp.json`
+- **For Visual Studio**: `.mcp.json`
+
+```json
+{
+  "servers": {
+    "AssetBundleMCP": {
+      "type": "stdio",
+      "command": "dotnet",
+      "args": [
+        "run",
+        "--project",
+        "<PATH TO PROJECT DIRECTORY>/src/AssetBundleMCP/AssetBundleMCP.csproj"
+      ]
     }
-    ```
+  }
+}
+```
 
-    - **For Gemini Cli**: `.gemini/settings.json`
+- **For Gemini Cli**: `.gemini/settings.json`
 
-    ```json
-    {
-      "mcpServers": {
-        "AssetBundleMCP": {
-          "command": "dnx",
-          "args": [
-            "AssetBundleMCP",
-            "--version",
-            "0.1.2",
-            "--yes"
-          ]
-        }
-      }
+```json
+{
+  "mcpServers": {
+    "AssetBundleMCP": {
+      "command": "dotnet",
+      "args": [
+        "run",
+        "--project",
+        "<PATH TO PROJECT DIRECTORY>/src/AssetBundleMCP/AssetBundleMCP.csproj"
+      ]
     }
-    ```
+  }
+}
+```
 
 ## Usage
 
-1.  **Load AssetBundle**:  
-    Open Copilot Chat in your IDE, specify the directory path containing the AssetBundle you want to analyze, and instruct it to load.
-    > `@workspace /loadAssetBundle C:/path/to/your/assetbundles`
+1.  **Loading AssetBundles**:  
+    Specify the directory path containing the AssetBundles you want to analyze and instruct the tool to load them.  
+    > Please load the AssetBundles in C:/path/to/your/assetbundles
 
-    The tool will analyze the AssetBundle and save the results to a temporary database file.
+    The tool will analyze the AssetBundles and save the results to a temporary database file. If you do not specify an output destination, an SQLite file will be created in the current directory.
 
-2.  **Retrieve Information**:  
+2.  **Retrieving Information**:  
     Once loading is complete, you can ask various questions.
-    - Get a list of assets:  
-      > `@workspace /listAssets`
-    - Get a list of textures:  
-      > `@workspace /listTextures`
-    - Find potentially duplicated assets:  
-      > `@workspace /listPotentialDuplicates`
-    - Execute a direct SQL query:  
-      > `@workspace /executeSqlQuery SELECT * FROM assets WHERE size > 100000`
+    - To get a list of assets:  
+      > Please show me the list of assets in the AssetBundle
+    - To get a list of textures:  
+      > Please show me the list of textures in the AssetBundle
 
-3.  **Finish Analysis**:  
-    When analysis is complete, unload the database and release resources with the following command:
-    > `@workspace /unLoadAssetBundle`
+3.  **Finishing Analysis**:  
+    When you are done analyzing, unload the database and release resources with the following command:  
+    > Please unload the AssetBundle database
 
 ## Available Tools
 
@@ -129,4 +169,4 @@ This project is licensed under the [MIT License](LICENSE).
 
 ## Acknowledgements
 
-The core analysis functionality of this tool uses [UnityDataTools](https://github.com/AssetTools/UnityDataTools). Many thanks to the developers of this excellent library.
+The core analysis functionality of this tool uses UnityDataTools. Many thanks to the developers of this excellent library.

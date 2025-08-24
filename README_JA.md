@@ -81,8 +81,8 @@
 3.  **MCPサーバーの設定**:
     お使いのAIアシスタントのドキュメントに従って、`AssetBundleMCP`をMCPサーバーとして設定してください。
 
-    - **Visual Studio Code の場合**: `.vscode/mcp.json`
-    - **Visual Studio の場合**: `.mcp.json`
+- **Visual Studio Code の場合**: `.vscode/mcp.json`
+- **Visual Studio の場合**: `.mcp.json`
 
     ```json
     {
@@ -100,7 +100,7 @@
     }
     ```
 
-    - **Gemini Cliの場合**: `.gemini/settings.json`
+- **Gemini Cliの場合**: `.gemini/settings.json`
 
     ```json
     {
@@ -165,4 +165,4 @@
 
 ## 謝辞
 
-このツールのコアな分析機能は [UnityDataTools](https://github.com/AssetTools/UnityDataTools) を利用しています。素晴らしいライブラリの開発者に感謝します。
+このツールのコアな分析機能は [UnityDataTools](https://github.com/Unity-Technologies/UnityDataTools) を利用しています。素晴らしいライブラリの開発者に感謝します。
