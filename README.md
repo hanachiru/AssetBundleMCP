@@ -42,7 +42,7 @@ Please follow the documentation for your AI assistant to set up `AssetBundleMCP`
       "args": [
         "AssetBundleMCP",
         "--version",
-        "0.1.5",
+        "0.1.7",
         "--yes"
       ]
     }
@@ -60,7 +60,7 @@ Please follow the documentation for your AI assistant to set up `AssetBundleMCP`
       "args": [
         "AssetBundleMCP",
         "--version",
-        "0.1.5",
+        "0.1.7",
         "--yes"
       ]
     }

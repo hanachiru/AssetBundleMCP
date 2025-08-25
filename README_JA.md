@@ -41,7 +41,7 @@
       "args": [
         "AssetBundleMCP",
         "--version",
-        "0.1.2",
+        "0.1.7",
         "--yes"
       ]
     }
@@ -59,7 +59,7 @@
       "args": [
         "AssetBundleMCP",
         "--version",
-        "0.1.2",
+        "0.1.7",
         "--yes"
       ]
     }
