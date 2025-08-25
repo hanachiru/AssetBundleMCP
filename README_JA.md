@@ -123,7 +123,7 @@ dotnet build -c Release
 
 ## 使用方法
 ### 1. **AssetBundleのロード**:  
-分析したいAssetBundleが含まれるディレクトリのパスを指定して、ロードを指示します。
+分析したいAssetBundleが含まれるディレクトリやAssetBundleのファイルのパスを指定して、ロードを指示します。
 > `C:/path/to/your/assetbundlesにあるAssetBundleをロードしてください`
 
 ツールがAssetBundleを分析し、結果を一時的なデータベースファイルに保存します。出力先を指定しない場合はカレントディレクトリにSQLiteファイルが作成されます。   

@@ -129,8 +129,8 @@ Please follow the documentation for your AI assistant to set up AssetBundleMCP a
 ## Usage
 
 ### 1. **Loading AssetBundles**:  
-  
-Specify the directory path containing the AssetBundles you want to analyze and instruct the tool to load them.  
+
+Specify the path to the directory containing the AssetBundles or the AssetBundle files you want to analyze, then instruct the system to load them.
 > Please load the AssetBundles in C:/path/to/your/assetbundles
 
 The tool will analyze the AssetBundles and save the results to a temporary database file. If you do not specify an output destination, an SQLite file will be created in the current directory.
