@@ -15,33 +15,35 @@ namespace AssetBundleMcpServer.Tool;
 public static class AssetBundleTools
 {
     // NOTE: I added the static modifier because the state could not be shared between Tools in the MCP Server without it.
+    //       I may change how this status is maintained.
     public static string? DatabasePath { get; private set; }
     public static bool IsLoaded() => !string.IsNullOrEmpty(DatabasePath) && File.Exists(DatabasePath);
 
     [McpServerTool, Description("Load a AssetBundle for analysis")]
     public static string LoadAssetBundle(
-        [Description("The path to the directory containing the files to analyze")]
-        string assetBundleDirPath,
+        [Description("A path to the directory or files to analyze.")]
+        string assetBundlePath,
         [Description(
             "Optional: The path to the database file to save the analysis results. If not provided, a default name will be used.")]
         string? databaseFilePath = null
     )
     {
-        if (!Directory.Exists(assetBundleDirPath))
+        if (!Directory.Exists(assetBundlePath) && !File.Exists(assetBundlePath))
         {
-            throw new McpException($"Failed to load AssetBundle. Directory does not exist: {assetBundleDirPath}");
+            throw new McpException($"Failed to load AssetBundle. Directory or File does not exist: {assetBundlePath}");
         }
+        var isFile = File.Exists(assetBundlePath);
 
         try
         {
             UnityFileSystem.Init();
             var analyzer = new AnalyzerTool();
-
+            
             databaseFilePath ??= Path.Combine(Directory.GetCurrentDirectory(), $"{Guid.NewGuid()}.db");
             var result = analyzer.Analyze(
-                assetBundleDirPath,
+                isFile ? Directory.GetParent(assetBundlePath)!.FullName : assetBundlePath,
                 databaseFilePath,
-                "*",
+                isFile ? Path.GetFileNameWithoutExtension(assetBundlePath) : "*",
                 false,
                 false,
                 false
