@@ -1,6 +1,6 @@
 {
   "$schema": "https://modelcontextprotocol.io/schemas/draft/2025-07-09/server.json",
-  "description": "MCP Server for Unity AssetBundle Reverse Engineering",
+  "description": "MCP Server for easily and efficiently analyzing Unity AssetBundles",
   "name": "io.github.hanachiru/AssetBundleMCP",
   "packages": [
     {

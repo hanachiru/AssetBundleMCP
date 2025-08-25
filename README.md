@@ -8,13 +8,17 @@ By using this tool, developers and QA engineers can quickly grasp information su
 
 ![Screenshot](docs/sample_english.png)
 
+> [!WARNING]
+> AssetBundleMCP is still in preview. Specifications are subject to change.
+
+
 ## Main Features
 
 - **Interactive AssetBundle Analysis**: Analyze AssetBundles just by talking to your AI assistant.
 - **Easy Installation**: Provided as a NuGet package, so you can easily introduce it by adding it to your configuration file.
 - **Flexible Data Access**: You can also write SQL queries directly to the AI and freely extract information from the database-formatted analysis results.
 
-## Prerequisites
+## Requirements
 
 - .NET 9.0 SDK or later
 
@@ -38,7 +42,7 @@ Please follow the documentation for your AI assistant to set up `AssetBundleMCP`
       "args": [
         "AssetBundleMCP",
         "--version",
-        "0.1.2",
+        "0.1.5",
         "--yes"
       ]
     }
@@ -56,7 +60,7 @@ Please follow the documentation for your AI assistant to set up `AssetBundleMCP`
       "args": [
         "AssetBundleMCP",
         "--version",
-        "0.1.2",
+        "0.1.5",
         "--yes"
       ]
     }
@@ -66,22 +70,22 @@ Please follow the documentation for your AI assistant to set up `AssetBundleMCP`
 
 
 ### Before .NET 10 preview 6 (Not Recommended)
-1.  **Clone the Repository**:  
+#### 1. **Clone the Repository**:  
   
-    Clone with the --recurse-submodules option to also fetch the Git submodules.
+Clone with the --recurse-submodules option to also fetch the Git submodules.
 
-    ```bash
-    git clone --recurse-submodules [https://github.com/hanachiru/AssetBundleMCP.git](https://github.com/hanachiru/AssetBundleMCP.git)
-    cd AssetBundleMCP
-    ```
+```bash
+git clone --recurse-submodules [https://github.com/hanachiru/AssetBundleMCP.git](https://github.com/hanachiru/AssetBundleMCP.git)
+cd AssetBundleMCP
+```
 
-2.  **Build the Project**:  
+#### 2. **Build the Project**:  
   
-    ```bash
-    dotnet build -c Release
-    ```
+```bash
+dotnet build -c Release
+```
     
-3.  **Configure the MCP server**:  
+#### 3. **Configure the MCP server**:  
   
 Please follow the documentation for your AI assistant to set up AssetBundleMCP as an MCP server.
 
@@ -124,25 +128,25 @@ Please follow the documentation for your AI assistant to set up AssetBundleMCP a
 
 ## Usage
 
-1.  **Loading AssetBundles**:  
+### 1. **Loading AssetBundles**:  
   
-    Specify the directory path containing the AssetBundles you want to analyze and instruct the tool to load them.  
-    > Please load the AssetBundles in C:/path/to/your/assetbundles
+Specify the directory path containing the AssetBundles you want to analyze and instruct the tool to load them.  
+> Please load the AssetBundles in C:/path/to/your/assetbundles
 
-    The tool will analyze the AssetBundles and save the results to a temporary database file. If you do not specify an output destination, an SQLite file will be created in the current directory.
+The tool will analyze the AssetBundles and save the results to a temporary database file. If you do not specify an output destination, an SQLite file will be created in the current directory.
 
-2.  **Retrieving Information**:  
+### 2. **Retrieving Information**:  
   
-    Once loading is complete, you can ask various questions.
-    - To get a list of assets:  
-      > Please show me the list of assets in the AssetBundle
-    - To get a list of textures:  
-      > Please show me the list of textures in the AssetBundle
+Once loading is complete, you can ask various questions.
+- To get a list of assets:  
+  > Please show me the list of assets in the AssetBundle
+- To get a list of textures:  
+  > Please show me the list of textures in the AssetBundle
 
-3.  **Finishing Analysis**:  
+### 3. **Finishing Analysis**:  
   
-    When you are done analyzing, unload the database and release resources with the following command:  
-    > Please unload the AssetBundle database
+When you are done analyzing, unload the database and release resources with the following command:  
+> Please unload the AssetBundle database
 
 ## Available Tools
 
@@ -173,4 +177,8 @@ This project is licensed under the [MIT License](LICENSE).
 
 ## Acknowledgements
 
-The core analysis functionality of this tool uses UnityDataTools. Many thanks to the developers of this excellent library.
+The core analysis functionality of this tool uses [UnityDataTools](https://github.com/Unity-Technologies/UnityDataTools). Many thanks to the developers of this excellent library.
+
+## Notes
+None of the repo, the tool, nor the repo owner is affiliated with, or sponsored or authorized by, Unity Technologies or its affiliates.  
+This is intended for use in developing your own products, and should not be used for reverse engineering other companies' products.

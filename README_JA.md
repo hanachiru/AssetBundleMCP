@@ -8,6 +8,9 @@
 
 ![Screenshot](docs/sample_japanese.png)
 
+> [!WARNING]
+> AssetBundleMCPはまだpreview段階です。大きく仕様が変わる可能性があります。
+
 ## 主な機能
 
 - **対話的なAssetBundle分析**: AIアシスタントに話しかけるだけで、AssetBundleを分析できます。
@@ -65,24 +68,22 @@
 ```
 
 ### .NET10 preview6 以前 (非推奨)
-
-1.  **リポジトリのクローン**:  
+#### 1. **リポジトリのクローン**:  
   
-    Gitのサブモジュールも同時に取得するため、`--recurse-submodules` オプションを付けてクローンします。
-    ```bash
-    git clone --recurse-submodules https://github.com/hanachiru/AssetBundleMCP.git
-    cd AssetBundleMCP
-    ```
+Gitのサブモジュールも同時に取得するため、`--recurse-submodules` オプションを付けてクローンします。
+```bash
+git clone --recurse-submodules https://github.com/hanachiru/AssetBundleMCP.git
+cd AssetBundleMCP
+```
 
-2.  **プロジェクトのビルド**:  
+#### 2. **プロジェクトのビルド**:  
   
-    ```bash
-    dotnet build -c Release
-    ```
+```bash
+dotnet build -c Release
+```
 
-3.  **MCPサーバーの設定**:  
-  
-    お使いのAIアシスタントのドキュメントに従って、`AssetBundleMCP`をMCPサーバーとして設定してください。
+#### 3. **MCPサーバーの設定**:  
+お使いのAIアシスタントのドキュメントに従って、`AssetBundleMCP`をMCPサーバーとして設定してください。
 
 - **Visual Studio Code の場合**: `.vscode/mcp.json`
 - **Visual Studio の場合**: `.mcp.json`
@@ -121,26 +122,23 @@
     ```
 
 ## 使用方法
+### 1. **AssetBundleのロード**:  
+分析したいAssetBundleが含まれるディレクトリのパスを指定して、ロードを指示します。
+> `C:/path/to/your/assetbundlesにあるAssetBundleをロードしてください`
 
-1.  **AssetBundleのロード**:  
+ツールがAssetBundleを分析し、結果を一時的なデータベースファイルに保存します。出力先を指定しない場合はカレントディレクトリにSQLiteファイルが作成されます。   
+
+### 2. **情報の取得**:  
   
-    分析したいAssetBundleが含まれるディレクトリのパスを指定して、ロードを指示します。
-    > `C:/path/to/your/assetbundlesにあるAssetBundleをロードしてください`
+ロードが完了したら、様々な質問をすることができます。
+- アセットの一覧を取得する:
+    > `AssetBundle内のアセットの一覧を教えてください`
+- テクスチャの一覧を取得する:
+    > `AssetBundle内のテクスチャの一覧を教えてください`
 
-    ツールがAssetBundleを分析し、結果を一時的なデータベースファイルに保存します。出力先を指定しない場合はカレントディレクトリにSQLiteファイルが作成されます。   
-
-2.  **情報の取得**:  
-  
-    ロードが完了したら、様々な質問をすることができます。
-    - アセットの一覧を取得する:
-      > `AssetBundle内のアセットの一覧を教えてください`
-    - テクスチャの一覧を取得する:
-      > `AssetBundle内のテクスチャの一覧を教えてください`
-
-3.  **分析の終了**:  
-  
-    分析が終わったら、以下のコマンドでデータベースをアンロードし、リソースを解放します。
-    > `AssetBundleのデータベースをアンロードしてください`
+### 3. **データベースファイルの削除**:  
+分析が終わったら、以下のコマンドでデータベースをアンロードし、リソースを解放します。
+> `AssetBundleのデータベースをアンロードしてください`
 
 ## 利用可能なツール一覧
 
@@ -172,3 +170,7 @@
 ## 謝辞
 
 このツールのコアな分析機能は [UnityDataTools](https://github.com/Unity-Technologies/UnityDataTools) を利用しています。素晴らしいライブラリの開発者に感謝します。
+
+## 注釈
+レポジトリ、ツール、レポジトリの所有者は、Unity Technologiesとは関係ありません。  
+自身のプロダクト開発への利用を想定しており、他社製品へのリバースエンジニアリングなどには用いないでください。
