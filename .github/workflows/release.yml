@@ -15,7 +15,7 @@ permissions:
 
 env:
   VersionFile: "./Directory.Build.props"
-  McpServerFile: ".src/AssetBundleMCP/.mcp/server.json"
+  McpServerFile: "src/AssetBundleMCP/.mcp/server.json"
 
 jobs:
   release:
