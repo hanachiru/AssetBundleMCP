@@ -1,5 +1,5 @@
 {
-  "$schema": "https://modelcontextprotocol.io/schemas/draft/2025-07-09/server.json",
+  "$schema": "https://raw.githubusercontent.com/modelcontextprotocol/registry/refs/heads/main/docs/server-json/schema.json",
   "description": "MCP Server for easily and efficiently analyzing Unity AssetBundles",
   "name": "io.github.hanachiru/AssetBundleMCP",
   "packages": [
