@@ -1,4 +1,4 @@
-using AssetBundleMcpServer.Internal;
+using AssetBundleMcp.Internal;
 
 namespace AssetBundleMCP.Tests;
 

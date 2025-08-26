@@ -1,24 +1,25 @@
+using AssetBundleMcp.Entity;
+using Object = AssetBundleMcp.Entity.Object;
 
-using AssetBundleMcpServer.Entity;
-
-namespace AssetBundleMcpServer.Repository;
+namespace AssetBundleMcp.Repository;
 
 public interface IAssetRepository
 {
-    public Animation[] GetAnimations(string dbPath);
-    public AssetDependencies[] GetAssetDependencies(string dbPath);
-    public Asset[] GetAssets(string dbPath);
-    public AudioClip[] GetAudioClips(string dbPath);
-    public Mesh[] GetMeshes(string dbPath);
-    public Entity.Object[] GetObjects(string dbPath);
-    public ShaderKeywordRatio[] GetShaderKeywordRatios(string dbPath);
-    public ShaderSubprogram[] GetShaderSubprograms(string dbPath);
-    public Shader[] GetShaders(string dbPath);
-    public Texture[] GetTextures(string dbPath);
-    public BreakdownByType[] GetBreakdownByType(string dbPath);
-    public BreakdownShaders[] GetBreakdownShaders(string dbPath);
-    public MaterialShaderRefs[] GetMaterialShaderRefs(string dbPath);
-    public MaterialTextureRefs[] GetMaterialTextureRefs(string dbPath);
-    public PotentialDuplicates[] GetPotentialDuplicates(string dbPath);
-    public string[] ExecuteCustomQuery(string dbPath, string query);
+    Animation[] GetAnimations(string dbPath);
+    AssetDependencies[] GetAssetDependencies(string dbPath);
+    Asset[] GetAssets(string dbPath);
+    AudioClip[] GetAudioClips(string dbPath);
+    Mesh[] GetMeshes(string dbPath);
+    Object[] GetObjects(string dbPath);
+    ShaderKeywordRatio[] GetShaderKeywordRatios(string dbPath);
+    ShaderSubprogram[] GetShaderSubprograms(string dbPath);
+    Shader[] GetShaders(string dbPath);
+    Texture[] GetTextures(string dbPath);
+    BreakdownByType[] GetBreakdownByType(string dbPath);
+    BreakdownShaders[] GetBreakdownShaders(string dbPath);
+    MaterialShaderRefs[] GetMaterialShaderRefs(string dbPath);
+    MaterialTextureRefs[] GetMaterialTextureRefs(string dbPath);
+    PotentialDuplicates[] GetPotentialDuplicates(string dbPath);
+    string[] ExecuteCustomQuery(string dbPath, string query);
+    void RefreshCache();
 }

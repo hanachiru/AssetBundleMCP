@@ -28,6 +28,13 @@
         <Content Include="TestData\**\*">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Content>
+        <Content Include="TestOutput\**\*">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="TestOutput\" />
     </ItemGroup>
 
 </Project>

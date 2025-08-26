@@ -1,7 +1,7 @@
 using System.ComponentModel;
 using System.Text.Json.Serialization;
 
-namespace AssetBundleMcpServer.Entity;
+namespace AssetBundleMcp.Entity;
 
 public record Texture
 {

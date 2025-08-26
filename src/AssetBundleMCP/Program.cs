@@ -1,4 +1,5 @@
-using AssetBundleMcpServer.Repository;
+using AssetBundleMcp.Repository;
+using AssetBundleMcp.Service;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -13,6 +14,8 @@ builder.Services
     .WithToolsFromAssembly()
     .WithResourcesFromAssembly();
 
+builder.Services.AddSingleton<IAssetBundleService, AssetBundleService>();
 builder.Services.AddSingleton<IAssetRepository, AssetRepository>();
+builder.Services.AddSingleton<IAnalyzerService, AnalyzerService>();
 
 await builder.Build().RunAsync();

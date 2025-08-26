@@ -1,4 +1,4 @@
-namespace AssetBundleMcpServer.Internal;
+namespace AssetBundleMcp.Internal;
 
 internal static class Paginate
 {
