@@ -1,5 +1,10 @@
 # AssetBundleMCP
 
+[![nuget](https://img.shields.io/nuget/v/AssetBundleMCP)](https://www.nuget.org/packages/AssetBundleMCP)
+[![Releases](https://img.shields.io/github/release/hanachiru/AssetBundleMCP.svg)](https://github.com/hanachiru/AssetBundleMCP/releases)
+[![license](https://img.shields.io/badge/LICENSE-MIT-green.svg)](LICENSE)
+[![GitHub Actions](https://github.com/hanachiru/AssetBundleMCP/workflows/test/badge.svg)](https://github.com/hanachiru/AssetBundleMCP/actions)
+
 [English](README.md)
 
 `AssetBundleMCP`は、AIアシスタント（gemini-cliなど）との対話を通じて、UnityのAssetBundleを簡単かつ効率的に分析するためのMCP (Model-Context-Protocol) サーバーです。
