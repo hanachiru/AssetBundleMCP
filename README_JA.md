@@ -40,8 +40,6 @@
       "command": "dnx",
       "args": [
         "AssetBundleMCP",
-        "--version",
-        "0.1.7",
         "--yes"
       ]
     }
@@ -58,8 +56,6 @@
       "command": "dnx",
       "args": [
         "AssetBundleMCP",
-        "--version",
-        "0.1.7",
         "--yes"
       ]
     }
