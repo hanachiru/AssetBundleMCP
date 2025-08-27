@@ -3,7 +3,7 @@
 [![nuget](https://img.shields.io/nuget/v/AssetBundleMCP)](https://www.nuget.org/packages/AssetBundleMCP)
 [![Releases](https://img.shields.io/github/release/hanachiru/AssetBundleMCP.svg)](https://github.com/hanachiru/AssetBundleMCP/releases)
 [![license](https://img.shields.io/badge/LICENSE-MIT-green.svg)](LICENSE)
-[![GitHub Actions](https://github.com/hanachiru/AssetBundleMCP/workflows/test/badge.svg)](https://github.com/hanachiru/AssetBundleMCP/actions)
+[![test](https://github.com/hanachiru/AssetBundleMCP/actions/workflows/test.yml/badge.svg)](https://github.com/hanachiru/AssetBundleMCP/actions/workflows/test.yml)
 
 [English](README.md)
 
