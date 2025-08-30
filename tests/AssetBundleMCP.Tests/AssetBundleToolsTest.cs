@@ -1,36 +1,35 @@
-﻿using AssetBundleMcpServer.Repository;
-using AssetBundleMcpServer.Tool;
+﻿using AssetBundleMcp.Repository;
+using AssetBundleMcp.Service;
+using AssetBundleMcp.Tool;
 
 namespace AssetBundleMCP.Tests;
 
 public class Tests
 {
     private string AssetBundleDirPath => Path.Combine(AppContext.BaseDirectory, "TestData");
-
-    [OneTimeTearDown]
-    public void OneTimeTearDown()
-    {
-        if (AssetBundleTools.IsLoaded())
-        {
-            AssetBundleTools.UnLoadAssetBundle();
-        }
-    }
-
+    
     [Test]
-    public void LoadAssetBundle()
+    public void LoadAndUnLoadAssetBundle()
     {
-        AssetBundleTools.LoadAssetBundle(AssetBundleDirPath);
+        var assetBundleService = CreateAssetBundleService();
+        
+        AssetBundleTools.LoadAssetBundle(assetBundleService, AssetBundleDirPath);
+        var loadedPath = assetBundleService.DatabasePath;
+        AssetBundleTools.UnLoadAssetBundle(assetBundleService);
+        var unloadedPath = assetBundleService.DatabasePath;
 
-        Assert.That(AssetBundleTools.DatabasePath, Is.Not.Null);
+        Assert.That(loadedPath, Is.Not.Null);
+        Assert.That(unloadedPath, Is.Null);
     }
     
     [Test]
     public void ListAnimations()
     {
-        var repository = new AssetRepository();
-
-        AssetBundleTools.LoadAssetBundle(AssetBundleDirPath);
-        var animations = AssetBundleTools.ListAnimations(repository);
+        var assetBundleService = CreateAssetBundleService();
+        
+        AssetBundleTools.LoadAssetBundle(assetBundleService, AssetBundleDirPath);
+        var animations = AssetBundleTools.ListAnimations(assetBundleService);
+        AssetBundleTools.UnLoadAssetBundle(assetBundleService);
 
         Assert.That(animations, Is.Not.Null);
     }
@@ -38,10 +37,11 @@ public class Tests
     [Test]
     public void ListAssetDependencies()
     {
-        var repository = new AssetRepository();
-
-        AssetBundleTools.LoadAssetBundle(AssetBundleDirPath);
-        var dependencies = AssetBundleTools.ListAssetDependencies(repository);
+        var assetBundleService = CreateAssetBundleService();
+        
+        AssetBundleTools.LoadAssetBundle(assetBundleService, AssetBundleDirPath);
+        var dependencies = AssetBundleTools.ListAssetDependencies(assetBundleService);
+        AssetBundleTools.UnLoadAssetBundle(assetBundleService);
 
         Assert.That(dependencies, Is.Not.Null);
     }
@@ -49,10 +49,11 @@ public class Tests
     [Test]
     public void ListAssets()
     {
-        var repository = new AssetRepository();
-
-        AssetBundleTools.LoadAssetBundle(AssetBundleDirPath);
-        var assets = AssetBundleTools.ListAssets(repository);
+        var assetBundleService = CreateAssetBundleService();
+        
+        AssetBundleTools.LoadAssetBundle(assetBundleService, AssetBundleDirPath);
+        var assets = AssetBundleTools.ListAssets(assetBundleService);
+        AssetBundleTools.UnLoadAssetBundle(assetBundleService);
 
         Assert.That(assets, Is.Not.Null);
     }
@@ -60,10 +61,11 @@ public class Tests
     [Test]
     public void ListAudioClips()
     {
-        var repository = new AssetRepository();
-
-        AssetBundleTools.LoadAssetBundle(AssetBundleDirPath);
-        var audioClips = AssetBundleTools.ListAudioClips(repository);
+        var assetBundleService = CreateAssetBundleService();
+        
+        AssetBundleTools.LoadAssetBundle(assetBundleService, AssetBundleDirPath);
+        var audioClips = AssetBundleTools.ListAudioClips(assetBundleService);
+        AssetBundleTools.UnLoadAssetBundle(assetBundleService);
 
         Assert.That(audioClips, Is.Not.Null);
     }
@@ -71,10 +73,11 @@ public class Tests
     [Test]
     public void ListMeshes()
     {
-        var repository = new AssetRepository();
-
-        AssetBundleTools.LoadAssetBundle(AssetBundleDirPath);
-        var meshes = AssetBundleTools.ListMeshes(repository);
+        var assetBundleService = CreateAssetBundleService();
+        
+        AssetBundleTools.LoadAssetBundle(assetBundleService, AssetBundleDirPath);
+        var meshes = AssetBundleTools.ListMeshes(assetBundleService);
+        AssetBundleTools.UnLoadAssetBundle(assetBundleService);
 
         Assert.That(meshes, Is.Not.Null);
     }
@@ -82,10 +85,11 @@ public class Tests
     [Test]
     public void ListObjects()
     {
-        var repository = new AssetRepository();
-
-        AssetBundleTools.LoadAssetBundle(AssetBundleDirPath);
-        var objects = AssetBundleTools.ListObjects(repository);
+        var assetBundleService = CreateAssetBundleService();
+        
+        AssetBundleTools.LoadAssetBundle(assetBundleService, AssetBundleDirPath);
+        var objects = AssetBundleTools.ListObjects(assetBundleService);
+        AssetBundleTools.UnLoadAssetBundle(assetBundleService);         
 
         Assert.That(objects, Is.Not.Null);
     }
@@ -93,10 +97,11 @@ public class Tests
     [Test]
     public void ListShaderKeywordRatios()
     {
-        var repository = new AssetRepository();
-
-        AssetBundleTools.LoadAssetBundle(AssetBundleDirPath);
-        var shaderKeywords = AssetBundleTools.ListShaderKeywordRatios(repository);
+        var assetBundleService = CreateAssetBundleService();
+        
+        AssetBundleTools.LoadAssetBundle(assetBundleService, AssetBundleDirPath);
+        var shaderKeywords = AssetBundleTools.ListShaderKeywordRatios(assetBundleService);
+        AssetBundleTools.UnLoadAssetBundle(assetBundleService);
 
         Assert.That(shaderKeywords, Is.Not.Null);
     }
@@ -104,10 +109,11 @@ public class Tests
     [Test]
     public void ListShaderSubprograms()
     {
-        var repository = new AssetRepository();
-
-        AssetBundleTools.LoadAssetBundle(AssetBundleDirPath);
-        var shaderSubprograms = AssetBundleTools.ListShaderSubprograms(repository);
+        var assetBundleService = CreateAssetBundleService();
+        
+        AssetBundleTools.LoadAssetBundle(assetBundleService, AssetBundleDirPath);
+        var shaderSubprograms = AssetBundleTools.ListShaderSubprograms(assetBundleService);
+        AssetBundleTools.UnLoadAssetBundle(assetBundleService);
 
         Assert.That(shaderSubprograms, Is.Not.Null);
     }
@@ -115,10 +121,11 @@ public class Tests
     [Test]
     public void ListShaders()
     {
-        var repository = new AssetRepository();
-
-        AssetBundleTools.LoadAssetBundle(AssetBundleDirPath);
-        var shaders = AssetBundleTools.ListShaders(repository);
+        var assetBundleService = CreateAssetBundleService();
+        
+        AssetBundleTools.LoadAssetBundle(assetBundleService, AssetBundleDirPath);
+        var shaders = AssetBundleTools.ListShaders(assetBundleService);
+        AssetBundleTools.UnLoadAssetBundle(assetBundleService);
 
         Assert.That(shaders, Is.Not.Null);
     }
@@ -126,10 +133,11 @@ public class Tests
     [Test]
     public void ListTextures()
     {
-        var repository = new AssetRepository();
-
-        AssetBundleTools.LoadAssetBundle(AssetBundleDirPath);
-        var textures = AssetBundleTools.ListTextures(repository);
+        var assetBundleService = CreateAssetBundleService();
+        
+        AssetBundleTools.LoadAssetBundle(assetBundleService, AssetBundleDirPath);
+        var textures = AssetBundleTools.ListTextures(assetBundleService);
+        AssetBundleTools.UnLoadAssetBundle(assetBundleService);
 
         Assert.That(textures, Is.Not.Null);
     }
@@ -137,10 +145,11 @@ public class Tests
     [Test]
     public void BreakdownByType()
     {
-        var repository = new AssetRepository();
-
-        AssetBundleTools.LoadAssetBundle(AssetBundleDirPath);
-        var breakdown = AssetBundleTools.ListBreakdownByType(repository);
+        var assetBundleService = CreateAssetBundleService();
+        
+        AssetBundleTools.LoadAssetBundle(assetBundleService, AssetBundleDirPath);
+        var breakdown = AssetBundleTools.ListBreakdownByType(assetBundleService);
+        AssetBundleTools.UnLoadAssetBundle(assetBundleService);
 
         Assert.That(breakdown, Is.Not.Null);
     }
@@ -148,10 +157,11 @@ public class Tests
     [Test]
     public void BreakdownShaders()
     {
-        var repository = new AssetRepository();
-
-        AssetBundleTools.LoadAssetBundle(AssetBundleDirPath);
-        var breakdownShaders = AssetBundleTools.ListBreakdownShaders(repository);
+        var assetBundleService = CreateAssetBundleService();
+        
+        AssetBundleTools.LoadAssetBundle(assetBundleService, AssetBundleDirPath);
+        var breakdownShaders = AssetBundleTools.ListBreakdownShaders(assetBundleService);
+        AssetBundleTools.UnLoadAssetBundle(assetBundleService);
 
         Assert.That(breakdownShaders, Is.Not.Null);
     }
@@ -159,10 +169,11 @@ public class Tests
     [Test]
     public void ListMaterialShaderRefs()
     {
-        var repository = new AssetRepository();
-
-        AssetBundleTools.LoadAssetBundle(AssetBundleDirPath);
-        var materialShaderRefs = AssetBundleTools.ListMaterialShaderRefs(repository);
+        var assetBundleService = CreateAssetBundleService();
+        
+        AssetBundleTools.LoadAssetBundle(assetBundleService, AssetBundleDirPath);
+        var materialShaderRefs = AssetBundleTools.ListMaterialShaderRefs(assetBundleService);
+        AssetBundleTools.UnLoadAssetBundle(assetBundleService);
 
         Assert.That(materialShaderRefs, Is.Not.Null);
     }
@@ -170,10 +181,11 @@ public class Tests
     [Test]
     public void ListMaterialTextureRefs()
     {
-        var repository = new AssetRepository();
-
-        AssetBundleTools.LoadAssetBundle(AssetBundleDirPath);
-        var materialTextureRefs = AssetBundleTools.ListMaterialTextureRefs(repository);
+        var assetBundleService = CreateAssetBundleService();
+        
+        AssetBundleTools.LoadAssetBundle(assetBundleService, AssetBundleDirPath);
+        var materialTextureRefs = AssetBundleTools.ListMaterialTextureRefs(assetBundleService);
+        AssetBundleTools.UnLoadAssetBundle(assetBundleService);
 
         Assert.That(materialTextureRefs, Is.Not.Null);
     }
@@ -181,11 +193,19 @@ public class Tests
     [Test]
     public void ListPotentialDuplicates()
     {
-        var repository = new AssetRepository();
-
-        AssetBundleTools.LoadAssetBundle(AssetBundleDirPath);
-        var potentialDuplicates = AssetBundleTools.ListPotentialDuplicates(repository);
+        var assetBundleService = CreateAssetBundleService();
+        
+        AssetBundleTools.LoadAssetBundle(assetBundleService, AssetBundleDirPath);
+        var potentialDuplicates = AssetBundleTools.ListPotentialDuplicates(assetBundleService);
+        AssetBundleTools.UnLoadAssetBundle(assetBundleService);
 
         Assert.That(potentialDuplicates, Is.Not.Null);
+    }
+    
+    private static AssetBundleService CreateAssetBundleService()
+    {
+        var repository = new AssetRepository();
+        var analyzerService = new AnalyzerService();
+        return new AssetBundleService(repository, analyzerService);
     }
 }

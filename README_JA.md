@@ -173,5 +173,4 @@ dotnet build -c Release
 このツールのコアな分析機能は [UnityDataTools](https://github.com/Unity-Technologies/UnityDataTools) を利用しています。素晴らしいライブラリの開発者に感謝します。
 
 ## 注釈
-レポジトリ、ツール、レポジトリの所有者は、Unity Technologiesとは関係ありません。  
-自身のプロダクト開発への利用を想定しており、他社製品へのリバースエンジニアリングなどには用いないでください。
+レポジトリ、ツール、レポジトリの所有者は、Unity Technologiesとは関係ありません。責任を持って使用し、法律および規制等を遵守してください。

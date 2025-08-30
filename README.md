@@ -181,5 +181,5 @@ This project is licensed under the [MIT License](LICENSE).
 The core analysis functionality of this tool uses [UnityDataTools](https://github.com/Unity-Technologies/UnityDataTools). Many thanks to the developers of this excellent library.
 
 ## Notes
-None of the repo, the tool, nor the repo owner is affiliated with, or sponsored or authorized by, Unity Technologies or its affiliates.  
-This is intended for use in developing your own products, and should not be used for reverse engineering other companies' products.
+None of the repo, the tool, nor the repo owner is affiliated with, or sponsored or authorized by, Unity Technologies or its affiliates.
+Use it responsibly and ensure compliance with applicable laws and regulations.
