@@ -13,9 +13,6 @@
 
 ![Screenshot](docs/sample_japanese.png)
 
-> [!WARNING]
-> AssetBundleMCPはまだpreview段階です。大きく仕様が変わる可能性があります。
-
 ## 主な機能
 
 - **対話的なAssetBundle分析**: AIアシスタントに話しかけるだけで、AssetBundleを分析できます。
