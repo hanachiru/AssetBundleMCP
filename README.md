@@ -72,7 +72,7 @@ Please follow the documentation for your AI assistant to set up `AssetBundleMCP`
 Clone with the --recurse-submodules option to also fetch the Git submodules.
 
 ```bash
-git clone --recurse-submodules [https://github.com/hanachiru/AssetBundleMCP.git](https://github.com/hanachiru/AssetBundleMCP.git)
+git clone --recurse-submodules https://github.com/hanachiru/AssetBundleMCP.git
 cd AssetBundleMCP
 ```
 
