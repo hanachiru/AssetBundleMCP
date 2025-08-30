@@ -13,10 +13,6 @@ By using this tool, developers and QA engineers can quickly grasp information su
 
 ![Screenshot](docs/sample_english.png)
 
-> [!WARNING]
-> AssetBundleMCP is still in preview. Specifications are subject to change.
-
-
 ## Main Features
 
 - **Interactive AssetBundle Analysis**: Analyze AssetBundles just by talking to your AI assistant.
