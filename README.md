@@ -65,8 +65,44 @@ Please follow the documentation for your AI assistant to set up `AssetBundleMCP`
 }
 ```
 
+### Before .NET 10 preview 6 (dotnet tool)
+#### 1. **Install the Tool**:
+```bash
+dotnet tool install -g AssetBundleMCP
+```
 
-### Before .NET 10 preview 6 (Not Recommended)
+#### 2. **Configure the MCP server**:
+Please follow the documentation for your AI assistant to set up AssetBundleMCP as an MCP server.
+
+
+- **For Visual Studio Code**: `.vscode/mcp.json`
+- **For Visual Studio**: `.mcp.json`
+
+```json
+{
+  "servers": {
+    "AssetBundleMCP": {
+      "type": "stdio",
+      "command": "assetbundlemcp"
+    }
+  }
+}
+```
+
+- **For Gemini Cli**: `.gemini/settings.json`
+
+```json
+{
+  "mcpServers": {
+    "AssetBundleMCP": {
+      "command": "assetbundlemcp"
+    }
+  }
+}
+```
+
+
+### Before .NET 10 preview 6 (local)
 #### 1. **Clone the Repository**:  
   
 Clone with the --recurse-submodules option to also fetch the Git submodules.

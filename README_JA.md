@@ -65,9 +65,45 @@
 }
 ```
 
-### .NET10 preview6 以前 (非推奨)
-#### 1. **リポジトリのクローン**:  
-  
+### .NET10 preview6 以前 (dotnet toolを使用)
+### 1. **ツールのインストール**:
+
+```bash
+dotnet tool install -g AssetBundleMCP
+```
+
+### 2. **MCPサーバーの設定**:
+お使いのAIアシスタントのドキュメントに従って、`AssetBundleMCP`をMCPサーバーとして設定してください。
+
+- **Visual Studio Code の場合**: `.vscode/mcp.json`
+- **Visual Studio の場合**: `.mcp.json`
+
+    ```json
+    {
+      "servers": {
+        "AssetBundleMCP": {
+          "type": "stdio",
+          "command": "assetbundlemcp"
+        }
+      }
+    }
+    ```
+
+- **Gemini Cliの場合**: `.gemini/settings.json`
+
+    ```json
+    {
+      "mcpServers": {
+        "AssetBundleMCP": {
+          "command": "assetbundlemcp"
+        }
+      }
+    }
+    ```
+
+### .NET10 preview6 以前 (localで実行)
+#### 1. **リポジトリのクローン**:
+
 Gitのサブモジュールも同時に取得するため、`--recurse-submodules` オプションを付けてクローンします。
 ```bash
 git clone --recurse-submodules https://github.com/hanachiru/AssetBundleMCP.git
