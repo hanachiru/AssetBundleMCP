@@ -65,7 +65,7 @@
 }
 ```
 
-### .NET10 preview6 以前 (dotnet toolを使用)
+### .NET10 preview6 以前
 ### 1. **ツールのインストール**:
 
 ```bash
@@ -101,7 +101,7 @@ dotnet tool install -g AssetBundleMCP
     }
     ```
 
-### .NET10 preview6 以前 (localで実行)
+### ローカルでビルドして使用する場合
 #### 1. **リポジトリのクローン**:
 
 Gitのサブモジュールも同時に取得するため、`--recurse-submodules` オプションを付けてクローンします。

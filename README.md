@@ -65,7 +65,7 @@ Please follow the documentation for your AI assistant to set up `AssetBundleMCP`
 }
 ```
 
-### Before .NET 10 preview 6 (dotnet tool)
+### Before .NET 10 preview 6
 #### 1. **Install the Tool**:
 ```bash
 dotnet tool install -g AssetBundleMCP
@@ -102,7 +102,7 @@ Please follow the documentation for your AI assistant to set up AssetBundleMCP a
 ```
 
 
-### Before .NET 10 preview 6 (local)
+### Building and using locally
 #### 1. **Clone the Repository**:  
   
 Clone with the --recurse-submodules option to also fetch the Git submodules.
