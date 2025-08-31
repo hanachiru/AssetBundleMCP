@@ -33,8 +33,4 @@
         </Content>
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="TestOutput\" />
-    </ItemGroup>
-
 </Project>
