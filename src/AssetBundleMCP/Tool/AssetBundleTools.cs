@@ -10,7 +10,7 @@ namespace AssetBundleMcp.Tool;
 [McpServerToolType, Description("MCP Server for Unity AssetBundle Reverse Engineering")]
 public static class AssetBundleTools
 {
-    [McpServerTool, Description("Load a AssetBundle for analysis")]
+    [McpServerTool, Description("Load an AssetBundle for analysis")]
     public static string LoadAssetBundle(
         IAssetBundleService service,
         [Description("A path to the directory or files to analyze.")]
